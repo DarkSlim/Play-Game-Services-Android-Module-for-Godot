@@ -28,6 +28,7 @@ public class PlayGameServices extends Godot.SingletonBase {
     private Boolean isRequestingSignIn = false;
     private Boolean isIntentInProgress = false;
     private Boolean isGooglePlayConnected = false;
+    private Boolean isResolvingConnectionFailure = false;
     private String                          leaderBoardID = null;
     private int                             leaderBoardScore = 0;
 
@@ -68,15 +69,20 @@ public class PlayGameServices extends Godot.SingletonBase {
                     @Override
                     public void onConnectionFailed(ConnectionResult m_result) {
                         Log.i("godot", "PlayGameServices: onConnectionFailed result code: "+String.valueOf(m_result));
+						
+                        if (isResolvingConnectionFailure) {
+                            return;
+                        }
                         
-                        if(!isIntentInProgress && m_result.hasResolution()) {
+						if(!isIntentInProgress && m_result.hasResolution()) {
                             try {
                                 isIntentInProgress = true;
                                 activity.startIntentSenderForResult(m_result.getResolution().getIntentSender(), RC_SIGN_IN, null, 0, 0, 0);
                             } catch (SendIntentException ex) {
                                 isIntentInProgress = false;
-                                GoogleApiClient.connect();
+                                GoogleApiClient.connect();                                                          
                             }
+                            isResolvingConnectionFailure = true;      
                         }
                     }
                 })
@@ -88,11 +94,11 @@ public class PlayGameServices extends Godot.SingletonBase {
         });
     }
 
-    public void sign_in() {
+    public void sign_in() {        
         activity.runOnUiThread(new Runnable() {
             @Override
-            public void run() {
-                GoogleApiClient.connect();
+            public void run() {                
+                GoogleApiClient.connect();                
             }
         });
 
@@ -116,12 +122,12 @@ public class PlayGameServices extends Godot.SingletonBase {
             }
         });
     }
-
+    
     public void is_logged_in() {
 
-        GodotLib.calldeferred(deviceID, "is_user_logged_in", new Object[]{(boolean) isGooglePlayConnected});
+        GodotLib.calldeferred(deviceID, "is_user_logged_in", new Object[]{ isGooglePlayConnected });
     }
-
+    
 
     public void leaderboard_submit(String id, int score)
     {
