@@ -85,3 +85,9 @@ PlayGameServices.achievement_show_list()
 Note that to use leaderboards, you must have at least one leaderboard already created in your Developer's Console. Same goes with achievements. You will get your ID and all there too.
 
 All these only works on a real Android system. So to test it, you need to export it into an Android apk and install it in your Android device. Remember to export it with your android_release.apk you compiled just now.
+
+One more thing, if you don't do this, even when your Android device is connected, it might keep trying to sign in to Google Play Services.
+
+In your developer's console, under "Game Details", there's a tiny section at the bottom titled "API Console Project". Then there's:
+
+This game is linked to the API console project called 'Your Game'. Click on 'Your Game' and you'll be led to another page. Then click "Enabled APIs" and see if all the APIs are enabled for your game.
