@@ -37,15 +37,12 @@ public class PlayGameServices extends Godot.SingletonBase {
 
     public PlayGameServices(Activity p_activity) {
         activity = p_activity;
-          registerClass("PlayGameServices", new String[]{"init","sign_in","leaderboard_submit","leaderboard_show","achievement_unlock","achievement_increment","achievement_show_list","is_logged_in","sign_out"});
+        registerClass("PlayGameServices", new String[]{"init","sign_in","leaderboard_submit","leaderboard_show","achievement_unlock","achievement_increment","achievement_show_list","is_logged_in","sign_out"});
     }
      
     protected void onMainDestroy() {
-
         disconnect();
     }
-
-
 
     public void init(int myDeviceID) {
         deviceID = myDeviceID;
@@ -123,17 +120,16 @@ public class PlayGameServices extends Godot.SingletonBase {
         });
     }
     
-    public void is_logged_in() {
-
+    public void is_logged_in() {            
         GodotLib.calldeferred(deviceID, "is_user_logged_in", new Object[]{ isGooglePlayConnected });
-    }
-    
+    }    
 
-    public void leaderboard_submit(String id, int score)
-    {
-        leaderBoardID		= id;
-        leaderBoardScore	= score;
-
+    public void leaderboard_submit(String id, int score) {
+        leaderBoardID = id;
+        leaderBoardScore = score;
+        
+        sign_in();
+        
         if (isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -143,14 +139,15 @@ public class PlayGameServices extends Godot.SingletonBase {
 
             Log.i("godot", "PlayGameServices: leaderboard_submit");
         } else {
-            Log.i("godot", "PlayGameServices: trying to call Google Play Game Services before connected, try calling sign_in first");
+            Log.i("godot", "PlayGameServices: trying to call Google Play Game Services before connected, try calling sign_in first");            
             return;
         }
     }
 
-    public void leaderboard_show(String id)
-    {
-        leaderBoardID		= id;
+    public void leaderboard_show(String id) {
+        leaderBoardID = id;
+        
+        sign_in();
 
         if (isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
@@ -166,6 +163,8 @@ public class PlayGameServices extends Godot.SingletonBase {
     }
 
     public void achievement_unlock(final String achievement_id) {
+        sign_in();
+        
         if(isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -182,6 +181,8 @@ public class PlayGameServices extends Godot.SingletonBase {
     }
 
     public void achievement_increment(final String achievement_id, final int increment_amount) {
+        sign_in();
+        
         if(isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -196,6 +197,8 @@ public class PlayGameServices extends Godot.SingletonBase {
     }
 
     public void achievement_show_list() {
+        sign_in();
+        
         if(isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
                 @Override
