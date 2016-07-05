@@ -91,3 +91,7 @@ One more thing, if you don't do this, even when your Android device is connected
 In your developer's console, under "Game Details", there's a tiny section at the bottom titled "API Console Project". Then there's:
 
 This game is linked to the API console project called 'Your Game'. Click on 'Your Game' and you'll be led to another page. Then click "Enabled APIs" and see if all the APIs are enabled for your game.
+
+##Issues
+
+Until this issue (https://github.com/godotengine/godot/issues/5251) has been solved, please edit platform/android/build.gradle.template and add ```applicationId "com.company.appname"``` to the defaultConfig section.
