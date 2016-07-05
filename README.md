@@ -94,4 +94,4 @@ This game is linked to the API console project called 'Your Game'. Click on 'You
 
 ##Issues
 
-Until this issue (https://github.com/godotengine/godot/issues/5251) has been solved, please edit ```platform/android/build.gradle.template``` and add ```applicationId "com.company.appname"``` to the **defaultConfig** section, replacing ```com.company.appname``` with your own. You might have to do this each time the ```build.gradle.template``` file is updated.
+Until this issue (https://github.com/godotengine/godot/issues/5251) has been solved, please edit ```platform/android/build.gradle.template``` and add ```applicationId "com.company.appname"``` to the **defaultConfig** section, replacing ```com.company.appname``` with your own. You might have to do this each time the ```build.gradle.template``` file is updated. **Not doing this will result in your app crashing upon startup.**
