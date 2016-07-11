@@ -1,25 +1,38 @@
 # Play-Game-Services-Android-Module-for-Godot
 Compile with Godot's source to get Google Play Game Services for Android in Godot up and running.
 
-To use this module first you need to register your app with your Developer's Console. In "Linked Apps", you need to verify your app with a SHA1. So, that means you need to generate your release keystore first before anything else.
+### 1. Generate Relese Keystore File
 
-To do that, you need keytool.exe which can be found in your bin folder in your JDK folder. Put keytool.exe in a command prompt, then chdir or cd to the directory where you want your keystore file to be. Then generate it:
+To use this module first you need to register your app with your _**Developer's Console**_. 
 
-keytool -genkey -v -keystore **my-release-key.keystore** -alias **alias_name** -keyalg RSA -keysize 2048 -validity 10000
+In _**Linked Apps**_, you need to verify your app with a _**SHA1**_. So, that means you need to generate your release keystore first before anything else.
 
-Replace my-release-key.keystore and alias_name with whatever you want to call your keystore file and alias_name.
+Use _**keytool.exe**_ which can be found in your _**bin**_ folder in your JDK folder. Run _**keytool.exe**_ from a command prompt, then ``chdir`` or ``cd`` to the directory where you want your keystore file to be. Generate it:
 
-After that you will be asked to type some details, and you will also be asked to type passwords. Remember these passwords. When it is all done, you should get a keystore file. Hold on to your keystore file for as long as you want your app to exist.
+``keytool -genkey -v -keystore ``**`` my-release-key.keystore``**`` -alias ``**``alias_name``**`` -keyalg RSA -keysize 2048 -validity 10000``
 
-Now within the same directory that your newly generated my-release-key.keystore file is in, use keytool again like this:
+Replace **``my-release-key.keystore``** and **``alias_name``** with whatever you want to call your **keystore file** and **alias_name**.
 
-keytool -list -v -keystore **my-release-key.keystore** -alias **alias_name** -storepass **mystorepassword** -keypass **mystorepassword**
+After that you will be asked to type some details, then passwords. Remember these passwords. When it is all done, you should get a keystore file. Hold on to your keystore file for as long as you want your app to exist.
 
-Replace the ones in bold. And remember the passwords you typed just now? You need to type them here.
+---
 
-In the command prompt there should be a list of stuff, find the one that says "SHA1". Copy the entire SHA1 key (the numbers/letters separated by colons) then go back to your Developer's Console. And in "Linked Apps", find where you can put in your SHA1 key. Then submit and you should get your Applicaation ID.
+### 2. Get SHA1 Key
 
-Now clone or download this repo, in PlayGameServices/android/ there's a file AndroidManifestChunk.xml. Edit it in a text editor. On the first line you see this:
+
+Now within the same directory that your newly generated ***my-release-key.keystore*** file is in, use ***keytool.exe*** again like this:
+
+``keytool -list -v -keystore ``**``my-release-key.keystore``**`` -alias ``**``alias_name``**`` -storepass ``**``mystorepassword``**`` -keypass ``**``mykeypassword``**
+
+Replace the ones in bold with your own. And remember *the passwords you typed just now*? You need to type them here.
+
+In the command prompt there should be a list of stuff, find the one that says __SHA1__. **Copy the entire SHA1 key** (the numbers/letters separated by colons) then go back to your ***Developer's Console***. And in ***Linked Apps***, find where you can put in your **SHA1** key. Then submit and you should get your **Application ID**. Note it down somewhere.
+
+---
+
+### 3. Clone This Repo and Paste Your Application ID Into AndroidManifestChunk.xml
+
+Now clone or download this repo into your own computer, in ***PlayGameServices/android/*** there's a file ***AndroidManifestChunk.xml***. Edit it in a text editor. On the first line you see this:
 
 `<meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\ [ADD APP ID HERE]" />`
 
@@ -27,35 +40,61 @@ So you want to type your Application ID there so that it looks like this:
 
 `<meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\ 552615016742" />`
 
-Next go to [Godot's GitHub repo](https://github.com/godotengine/godot) and clone/download the sources.
+---
 
-Now you need to copy the entire PlayGameServices folder and put it in your godot-source/modules folder. Same place where gdscript and gridmap modules are. 
+### 4. Modify config.py
 
-Now [compile Godot for Android](http://docs.godotengine.org/en/latest/reference/compiling_for_android.html). Make sure you have the requirements installed / set up. Open a Developer Command Prompt for Visual Studio with Administrator rights.
+Edit ***PlayGameServices/config.py*** in a text editor. Find the line that says:
 
-cd or chdir to the root folder of Godot's sources and type:
+``env.android_add_default_config("applicationId 'com.godot.game'")``
 
-scons platform=android target=release tools=no android_arch=armv6 android_neon=no
+replace ``com.godot.game`` with your own. For example:
 
-Then wait for the compilation to be done. When it is done, go to the bin folder, there should be a libgodot...............so file. Rename this file to libgodot_android.so, then, within the Godot sources directory copy this file to platform/android/java/libs/armeabi. If libs/armeabi isn't there, you need to create it yourself. Now open up a command prompt and go to just platform/android/java and type:
+``env.android_add_default_config("applicationId 'com.ranmaru90.fours'")``
 
-gradlew.bat build
+---
+
+### 5. Clone Godot's Repo and Prepare This Module with Godot's Sources for Compilation
+
+Next go to [Godot's GitHub repo](https://github.com/godotengine/godot) and clone / download Godot's sources.
+
+Copy the entire ***PlayGameServices*** folder and put it in your ***\<godot-source\>/modules*** folder. Same folder/directory where ***gdscript*** and ***gridmap*** modules are. 
+
+Now [compile Godot for Android](http://docs.godotengine.org/en/latest/reference/compiling_for_android.html). Make sure you have the requirements installed / set up. 
+
+---
+
+### 6. Compile
+
+I'm using Windows so, I can only tell you to open a ***Developer Command Prompt for Visual Studio*** with *Administrator* rights.
+
+``cd`` or ``chdir`` to the ***root folder of Godot's sources*** and type:
+
+``scons platform=android target=release tools=no android_arch=armv6 android_neon=no``
+
+Then wait for the compilation to be done. When it is done, go to the ***\<godot-source\>/platform/android/java*** folder. Now open up a command prompt and go to the same folder ***\<godot-source\>/platform/android/java*** and type:
+
+``gradlew.bat build``
 
 or
 
-./gradlew build
+``./gradlew build``
 
-Wait for it to be done, then go to platform/android/java/build/outputs/apk/ there should be 3 apks there. Get the one that says java-release......apk and rename it to android_release.apk and put it somewhere convenient for Godot.
+Wait for it to be done, then go to ***\<godot-source\>/bin*** and you should see a file called ***android_release.apk***. This apk file is your Android release export template.
 
 Since this module works with release apks only we don't have to compile for Android in debug mode and get an android_debug.apk.
 
-Now open Godot, and go to Scene -> Project Settings. At the very top, but just right below the tabs, you can see Category: and Properties: and Type:
+---
 
-So type "android" for Category: "modules" for Property: and set the Type: to string and click Add. You should get a new Android section in the list of Sections. Click on it, and there should be a "modules" field where you can type.
+### 7. Use the Module
+
+Now open Godot, and go to ***Scene*** -> ***Project Settings***. At the very top, but just right below the tabs, you can see ***Category:*** and ***Properties:*** and ***Type:***
+
+Type ***android*** for Category: ***modules*** for Property: and set the Type: to ***string*** and click Add. You should get a new Android section in the list of Sections. Click on it, and there should be a ***modules*** field where you can type.
 
 So type:
 
-org/godotengine/godot/PlayGameServices 
+``org/godotengine/godot/PlayGameServices`` 
 
 in it and press enter. Now make a new gdscript file, put it on a Node in a scene or something.
 
@@ -91,7 +130,3 @@ One more thing, if you don't do this, even when your Android device is connected
 In your developer's console, under "Game Details", there's a tiny section at the bottom titled "API Console Project". Then there's:
 
 This game is linked to the API console project called 'Your Game'. Click on 'Your Game' and you'll be led to another page. Then click "Enabled APIs" and see if all the APIs are enabled for your game.
-
-##Issues
-
-Until this issue (https://github.com/godotengine/godot/issues/5251) has been solved, please edit ```platform/android/build.gradle.template``` and add ```applicationId "com.company.appname"``` to the **defaultConfig** section, replacing ```com.company.appname``` with your own. You might have to do this each time the ```build.gradle.template``` file is updated. **Not doing this will result in your app crashing upon startup.**
