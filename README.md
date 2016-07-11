@@ -28,7 +28,7 @@ Replace **``my-release-key.keystore``** and **``alias_name``** with whatever you
 After that you will be asked to type some details, then passwords. Remember these passwords. When it is all done, you should get a keystore file. Hold on to your keystore file for as long as you want your app to exist.
 
 
-## 2. Get SHA1 Key and Then Application ID
+## 2. Get SHA1 Key and then Application ID
 
 
 Now within the same directory that your newly generated ***my-release-key.keystore*** file is in, use ***keytool.exe*** again like this:
@@ -133,8 +133,40 @@ PlayGameServices.achievement_increment(String achievement_id, int increment_amou
 PlayGameServices.achievement_show_list()
 ```
 
+## 8. Exporting an Android Game to a Release apk
 
-## 8. Miscellaneous Things to Take Note
+#### A. Editor Settings
+
+When you're done with all that coding, you probably want to export it to an Android release apk. In Godot, go to ***Settings***. It's on the top-right corner. Then click on ***Editor Settings*** to bring it up.
+
+Make sure you're in the ***General*** tab, under ***Sections***, click ***Android*** to reveal the engine-wide Android settings. Set the path to your ***adb.exe*** (found in your ***\<android-sdk\>/platform-tools/***) and ***jarsigner.exe*** (found in your ***\<jdk\>/bin/***). **.exe* if you're on Windows, of course.
+
+
+Next, set the path to your ***debug keystore*** (Google for it if you don't know how to make one) and fill in the relevant details.
+
+For ***Timestamping Authority URL*** you can fill it with ``http://timestamp.digicert.com/``
+
+Close the dialog box after that.
+
+
+#### B. Project Export Settings
+
+Now click on the ***Export*** button. It's on the top-left corner. The ***Project Export Settings*** dialog box is brought up. Make sure you are on the ***Target*** tab, under ***Export to Platform***, click on ***Android***.
+
+The ***Options*** are revealed. 
+
+Since we're making an Android release apk, we have to make sure that ***Debugging Enabled*** is **unchecked**.
+
+Under ***Custom Package*** set the path to your **Android release template** (***android_release.apk***) that you've compiled just now. Then under ***Package***, set the ***Unique Name***, make sure it's the same as the one you've done in ***Step 4***. Here, you can also give your Android game a ***Name***.
+
+Let's go to ***Keystore***. In ***Release***, set the path to the **keystore file** you've generated in ***Step 1***. Then type in your ***Release User*** which is the same as ***alias_name*** in ***Step 2*** and ***Release Password*** which is the same as ***mystorepassword*** in ***Step 2***.
+
+Under ***Permissions*** make sure ***Access Network State*** and ***Internet*** are **checked**.
+
+Now you can click on the ***Export...*** button, give your apk file a name, and export the Android release apk. Install this apk on your Android device.
+
+
+## 9. Miscellaneous Things to Take Note
 
 * If you don't do this, even when your Android device is connected, it might keep trying to sign in to Google Play Services.
  	* In your ***Developer's Console***, under ***Game Details***, there's a tiny section at the bottom titled ***API Console Project***. Then there's: 
