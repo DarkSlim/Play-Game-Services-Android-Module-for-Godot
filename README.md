@@ -127,6 +127,8 @@ PlayGameServices.achievement_increment(String achievement_id, int increment_amou
 PlayGameServices.achievement_show_list()
 ```
 
+---
+
 ### 8. Miscellaneous Things to Take Note
 
 * Note that to use leaderboards, **you must have at least one leaderboard already created in your Developer's Console**. **Same goes with achievements**. You will get your IDs and all there too.
