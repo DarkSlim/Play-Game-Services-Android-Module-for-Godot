@@ -17,7 +17,7 @@ After that you will be asked to type some details, then passwords. Remember thes
 
 ---
 
-### 2. Get SHA1 Key
+### 2. Get SHA1 Key and Then Application ID
 
 
 Now within the same directory that your newly generated ***my-release-key.keystore*** file is in, use ***keytool.exe*** again like this:
@@ -26,7 +26,9 @@ Now within the same directory that your newly generated ***my-release-key.keysto
 
 Replace the ones in bold with your own. And remember *the passwords you typed just now*? You need to type them here.
 
-In the command prompt there should be a list of stuff, find the one that says __SHA1__. **Copy the entire SHA1 key** (the numbers/letters separated by colons) then go back to your ***Developer's Console***. And in ***Linked Apps***, find where you can put in your **SHA1** key. Then submit and you should get your **Application ID**. Note it down somewhere.
+In the command prompt there should be a list of stuff, find the one that says __SHA1__. 
+
+**Copy the entire SHA1 key** (the numbers/letters separated by colons) then go back to your ***Developer's Console***. And in ***Linked Apps***, find where you can put in your **SHA1** key. Then submit and you should get your **Application ID**. Note it down somewhere.
 
 ---
 
@@ -52,6 +54,8 @@ replace ``com.godot.game`` with your own. For example:
 
 ``env.android_add_default_config("applicationId 'com.ranmaru90.fours'")``
 
+**Skipping this step will result in your Android app crashing horribly at startup.**
+
 ---
 
 ### 5. Clone Godot's Repo and Prepare This Module with Godot's Sources for Compilation
@@ -72,7 +76,7 @@ I'm using Windows so, I can only tell you to open a ***Developer Command Prompt 
 
 ``scons platform=android target=release tools=no android_arch=armv6 android_neon=no``
 
-Then wait for the compilation to be done. When it is done, go to the ***\<godot-source\>/platform/android/java*** folder. Now open up a command prompt and go to the same folder ***\<godot-source\>/platform/android/java*** and type:
+Then wait for the compilation to be done. When it is done, go to the ***\<godot-source\>/platform/android/java*** folder. Now open up a command prompt in the same folder ***\<godot-source\>/platform/android/java*** and type:
 
 ``gradlew.bat build``
 
@@ -109,7 +113,9 @@ func _init():
 		PlayGameServices.init(get_instance_ID())
 ```
 
-Remember that right after you get_singleton("PlayGameServices") you must always use the init() method and pass get_instance_ID() into it before doing anything else with the module. Now here are some other functions that can be used in gdscript:
+Remember that right after you ``get_singleton("PlayGameServices")`` you must always use the ``init()`` method and pass ``get_instance_ID()`` into it before doing anything else with the module. 
+
+Now here are some other functions that can be used in gdscript:
 
 ```
 PlayGameServices.sign_in() 
@@ -121,12 +127,20 @@ PlayGameServices.achievement_increment(String achievement_id, int increment_amou
 PlayGameServices.achievement_show_list()
 ```
 
-Note that to use leaderboards, you must have at least one leaderboard already created in your Developer's Console. Same goes with achievements. You will get your ID and all there too.
+### 8. Miscellaneous Things to Take Note
 
-All these only works on a real Android system. So to test it, you need to export it into an Android apk and install it in your Android device. Remember to export it with your android_release.apk you compiled just now.
+* Note that to use leaderboards, **you must have at least one leaderboard already created in your Developer's Console**. **Same goes with achievements**. You will get your IDs and all there too.
 
-One more thing, if you don't do this, even when your Android device is connected, it might keep trying to sign in to Google Play Services.
 
-In your developer's console, under "Game Details", there's a tiny section at the bottom titled "API Console Project". Then there's:
+* All these only work on **an actual Android system (a _device_ or _emulator_)**. So to test it, you need to **export** it into an Android **apk** and **install it in your Android device**. 
 
-This game is linked to the API console project called 'Your Game'. Click on 'Your Game' and you'll be led to another page. Then click "Enabled APIs" and see if all the APIs are enabled for your game.
+
+* Remember to **export it with your _android_release.apk_** you compiled just now.
+
+
+* One more thing, if you don't do this, even when your Android device is connected, it might keep trying to sign in to Google Play Services.
+ 	* In your developer's console, under "Game Details", there's a tiny section at the bottom titled "API Console Project". Then there's: 
+ 	>This game is linked to the API console project called 'Your Game'. 
+ 	>
+ 
+ 	* Click on **_Your Game_** and you'll be led to another page. Then click _**Enabled APIs**_ and see if all the APIs are **enabled** for your game.
