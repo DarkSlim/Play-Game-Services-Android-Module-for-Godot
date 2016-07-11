@@ -1,5 +1,5 @@
 # Play-Game-Services-Android-Module-for-Godot
-**Compile with Godot's source to add Google Play Game Services for Android to your Godot game.**
+**This is an _[Android module](http://docs.godotengine.org/en/latest/reference/creating_android_modules.html)_ for the [Godot](https://godotengine.org/) game engine to enable Google Play Services in Android builds.**
 
 #### Features
 
