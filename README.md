@@ -152,4 +152,4 @@ PlayGameServices.achievement_show_list()
 * Remember to **export it with your _android_release.apk_** you compiled just now.
 
 
-* For **each app** that you want to add this module to, you need to do **Step 3** and **Step 4**, specific to your app. Then copy and paste and replace the entire ***PlayGameServices*** folder/directory in ***\<godot-source\>/modules***, follow through the steps and compile everything again. **So, you are *NOT* able to share one Android release template (***android_release.apk***) across all your Android games. You have to recompile for each Android app.** 
+* For **each app** that you want to add this module to, you need to do **Step 3** and **Step 4**, specific to your app. Then copy and paste and replace the entire ***PlayGameServices*** folder/directory in ***\<godot-source\>/modules***, follow through the steps and compile everything again. **So, you are *NOT* able to share one Android release template (*android_release.apk*) across all your Android games. You have to recompile for each Android app, since each app has its own unique Application ID and package name.** 
