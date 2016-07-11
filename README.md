@@ -136,7 +136,14 @@ PlayGameServices.achievement_show_list()
 
 ## 8. Miscellaneous Things to Take Note
 
-* Note that to use leaderboards, **you must have at least one leaderboard already created in your Developer's Console**. **Same goes with achievements**. You will get your IDs and all there too.
+* If you don't do this, even when your Android device is connected, it might keep trying to sign in to Google Play Services.
+ 	* In your ***Developer's Console***, under ***Game Details***, there's a tiny section at the bottom titled ***API Console Project***. Then there's: 
+ 	>This game is linked to the API console project called '***Your Game***'. 
+ 	>
+ 
+ 	* Click on **_Your Game_** and you'll be led to another page. Then click _**Enabled APIs**_ and see if all the APIs are **enabled** for your game.
+
+* Note that to use leaderboards, **you must have at least one leaderboard already created in your _Developer's Console_**. **Same goes with achievements**. You will get your IDs and all there too.
 
 
 * All these only work on **an actual Android system (a _device_ or _emulator_)**. So to test it, you need to **export** it into an Android **apk** and **install it in your Android device**. 
@@ -145,9 +152,4 @@ PlayGameServices.achievement_show_list()
 * Remember to **export it with your _android_release.apk_** you compiled just now.
 
 
-* One more thing, if you don't do this, even when your Android device is connected, it might keep trying to sign in to Google Play Services.
- 	* In your developer's console, under "Game Details", there's a tiny section at the bottom titled "API Console Project". Then there's: 
- 	>This game is linked to the API console project called 'Your Game'. 
- 	>
- 
- 	* Click on **_Your Game_** and you'll be led to another page. Then click _**Enabled APIs**_ and see if all the APIs are **enabled** for your game.
+* For **each app** that you want to add this module to, you need to do **Step 3** and **Step 4**, specific to your app. Then copy and paste and replace the entire ***PlayGameServices*** folder/directory in ***\<godot-source\>/modules***, follow through the steps and compile everything again. **So, you are *NOT* able to share one Android release template (***android_release.apk***) across all your Android games. You have to recompile for each Android app.** 
