@@ -1,11 +1,23 @@
 # Play-Game-Services-Android-Module-for-Godot
-Compile with Godot's source to get Google Play Game Services for Android in Godot up and running.
+**Compile with Godot's source to add Google Play Game Services for Android your Godot game.**
 
-### 1. Generate Relese Keystore File
+#### Features
 
-To use this module first you need to register your app with your _**Developer's Console**_. 
+Leaderboards |  Achievements
+---------------|---------------
+Submit scores. | Unlock achievements.
+Show leaderboards. | Increment achievements.
+                   | Show achievements.
 
-In _**Linked Apps**_, you need to verify your app with a _**SHA1**_. So, that means you need to generate your release keystore first before anything else.
+
+
+## 1. Generate Release Keystore File
+
+To use this module first you need to register your app with your _**[Developer's Console](https://play.google.com/apps/publish)**_. 
+
+In your _**Developer's Console**_, go to _**Game Services**_ and ***Add new game***.
+
+Then in your newly added game, go to  _**Linked Apps**_. You need to verify your app with a _**SHA1**_. So, that means you need to generate your release keystore first before continuing.
 
 Use _**keytool.exe**_ which can be found in your _**bin**_ folder in your JDK folder. Run _**keytool.exe**_ from a command prompt, then ``chdir`` or ``cd`` to the directory where you want your keystore file to be. Generate it:
 
@@ -15,9 +27,8 @@ Replace **``my-release-key.keystore``** and **``alias_name``** with whatever you
 
 After that you will be asked to type some details, then passwords. Remember these passwords. When it is all done, you should get a keystore file. Hold on to your keystore file for as long as you want your app to exist.
 
----
 
-### 2. Get SHA1 Key and Then Application ID
+## 2. Get SHA1 Key and Then Application ID
 
 
 Now within the same directory that your newly generated ***my-release-key.keystore*** file is in, use ***keytool.exe*** again like this:
@@ -30,9 +41,8 @@ In the command prompt there should be a list of stuff, find the one that says __
 
 **Copy the entire SHA1 key** (the numbers/letters separated by colons) then go back to your ***Developer's Console***. And in ***Linked Apps***, find where you can put in your **SHA1** key. Then submit and you should get your **Application ID**. Note it down somewhere.
 
----
 
-### 3. Clone This Repo and Paste Your Application ID Into AndroidManifestChunk.xml
+## 3. Clone This Repo and Paste Your Application ID Into AndroidManifestChunk.xml
 
 Now clone or download this repo into your own computer, in ***PlayGameServices/android/*** there's a file ***AndroidManifestChunk.xml***. Edit it in a text editor. On the first line you see this:
 
@@ -42,9 +52,8 @@ So you want to type your Application ID there so that it looks like this:
 
 `<meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\ 552615016742" />`
 
----
 
-### 4. Modify config.py
+## 4. Modify config.py
 
 Edit ***PlayGameServices/config.py*** in a text editor. Find the line that says:
 
@@ -56,9 +65,8 @@ replace ``com.godot.game`` with your own. For example:
 
 **Skipping this step will result in your Android app crashing horribly at startup.**
 
----
 
-### 5. Clone Godot's Repo and Prepare This Module with Godot's Sources for Compilation
+## 5. Clone Godot's Repo and Prepare This Module with Godot's Sources for Compilation
 
 Next go to [Godot's GitHub repo](https://github.com/godotengine/godot) and clone / download Godot's sources.
 
@@ -66,9 +74,8 @@ Copy the entire ***PlayGameServices*** folder and put it in your ***\<godot-sour
 
 Now [compile Godot for Android](http://docs.godotengine.org/en/latest/reference/compiling_for_android.html). Make sure you have the requirements installed / set up. 
 
----
 
-### 6. Compile
+## 6. Compile
 
 I'm using Windows so, I can only tell you to open a ***Developer Command Prompt for Visual Studio*** with *Administrator* rights.
 
@@ -88,9 +95,8 @@ Wait for it to be done, then go to ***\<godot-source\>/bin*** and you should see
 
 Since this module works with release apks only we don't have to compile for Android in debug mode and get an android_debug.apk.
 
----
 
-### 7. Use the Module
+## 7. Use the Module
 
 Now open Godot, and go to ***Scene*** -> ***Project Settings***. At the very top, but just right below the tabs, you can see ***Category:*** and ***Properties:*** and ***Type:***
 
@@ -115,7 +121,7 @@ func _init():
 
 Remember that right after you ``get_singleton("PlayGameServices")`` you must always use the ``init()`` method and pass ``get_instance_ID()`` into it before doing anything else with the module. 
 
-Now here are some other functions that can be used in gdscript:
+Now here are some other functions that can be used in GDScript:
 
 ```
 PlayGameServices.sign_in() 
@@ -127,9 +133,8 @@ PlayGameServices.achievement_increment(String achievement_id, int increment_amou
 PlayGameServices.achievement_show_list()
 ```
 
----
 
-### 8. Miscellaneous Things to Take Note
+## 8. Miscellaneous Things to Take Note
 
 * Note that to use leaderboards, **you must have at least one leaderboard already created in your Developer's Console**. **Same goes with achievements**. You will get your IDs and all there too.
 
