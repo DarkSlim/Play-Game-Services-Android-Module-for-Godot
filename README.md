@@ -68,7 +68,7 @@ replace ``com.godot.game`` with your own. For example:
 
 ## 5. Clone Godot's Repo and Prepare This Module with Godot's Sources for Compilation
 
-Next go to [Godot's GitHub repo](https://github.com/godotengine/godot) and clone / download Godot's sources.
+Next go to [Godot's GitHub repo](https://github.com/godotengine/godot) and clone / download Godot's sources from its **LATEST STABLE BRANCH**.
 
 Copy the entire ***PlayGameServices*** folder and put it in your ***\<godot-source\>/modules*** folder. Same folder/directory where ***gdscript*** and ***gridmap*** modules are. 
 
