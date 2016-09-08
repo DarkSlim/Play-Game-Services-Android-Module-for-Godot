@@ -98,7 +98,7 @@ Since this module works with release apks only we don't have to compile for Andr
 
 ## 7. Use the Module
 
-###JUST IN CASE IF YOU ARE IN A HURRY TO USE THIS MODULE, SO MUCH AS TO SKIM THE INSTRUCTIONS, PLEASE BEAR IN MIND THAT IT ONLY WORKS ON THE ACTUAL ANDROID DEVICE.###
+###JUST IN CASE IF YOU ARE IN A HURRY TO USE THIS MODULE, SO MUCH AS TO SKIM THE INSTRUCTIONS, PLEASE BEAR IN MIND THAT IT ONLY WORKS ON THE ACTUAL ANDROID DEVICE. DON'T TRY RUNNING IT ON YOUR DESKTOP AND THEN COME CRYING AT ME SAYING HOW IT DOESN'T WORK BLABLABLABLABLABLA.###
 
 Now open Godot, and go to ***Scene*** -> ***Project Settings***. At the very top, but just right below the tabs, you can see ***Category:*** and ***Properties:*** and ***Type:***
 
