@@ -98,6 +98,8 @@ Since this module works with release apks only we don't have to compile for Andr
 
 ## 7. Use the Module
 
+###JUST IN CASE IF YOU ARE IN A HURRY TO USE THIS MODULE, SO MUCH AS TO SKIM THE INSTRUCTIONS, PLEASE BEAR IN MIND THAT IT ONLY WORKS ON THE ACTUAL ANDROID DEVICE.###
+
 Now open Godot, and go to ***Scene*** -> ***Project Settings***. At the very top, but just right below the tabs, you can see ***Category:*** and ***Properties:*** and ***Type:***
 
 Type ***android*** for Category: ***modules*** for Property: and set the Type: to ***string*** and click Add. You should get a new Android section in the list of Sections. Click on it, and there should be a ***modules*** field where you can type.
@@ -106,7 +108,15 @@ So type:
 
 ``org/godotengine/godot/PlayGameServices`` 
 
-in it and press enter. Now make a new gdscript file, put it on a Node in a scene or something.
+in it and press enter. Now make a new gdscript file, put it on a Node in a scene or something. If you're editing the ***engine.cfg*** directly, then:
+
+```
+[android]
+
+modules="org/godotengine/godot/PlayGameServices"
+```
+
+Make sure it's **[android]** and NOT [Android]. It's **case-sensitive**.
 
 In the gdscript file, you could do something like this:
 
