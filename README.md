@@ -1,5 +1,5 @@
 # Play-Game-Services-Android-Module-for-Godot
-**This is an _[Android module](http://docs.godotengine.org/en/latest/reference/creating_android_modules.html)_ for the [Godot](https://godotengine.org/) game engine to enable Google Play Services in Android builds.**
+**This is an _[Android module](http://docs.godotengine.org/en/latest/reference/creating_android_modules.html)_ for the [Godot](https://godotengine.org/) game engine to enable Google Play Services in Android builds. Recommended branch: [2.1](https://github.com/godotengine/godot/tree/2.1)** 
 
 #### Features
 
