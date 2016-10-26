@@ -14,23 +14,21 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
-
-
 public class PlayGameServices extends Godot.SingletonBase {
 
-    private static final int                RC_SAVED_GAMES = 9002;
-    private static final int                RC_SIGN_IN = 9001;
-    private static final int                REQUEST_ACHIEVEMENTS = 9002;
-    private static final int	            REQUEST_LEADERBOARD		= 1002;
+    private static final int RC_SAVED_GAMES = 9002;
+    private static final int RC_SIGN_IN = 9001;
+    private static final int REQUEST_ACHIEVEMENTS = 9002;
+    private static final int REQUEST_LEADERBOARD = 1002;
     private int deviceID;
     private Activity activity;
-    private GoogleApiClient GoogleApiClient;
+    private GoogleApiClient client;
     private Boolean isRequestingSignIn = false;
     private Boolean isIntentInProgress = false;
     private Boolean isGooglePlayConnected = false;
     private Boolean isResolvingConnectionFailure = false;
-    private String                          leaderBoardID = null;
-    private int                             leaderBoardScore = 0;
+    private String leaderBoardID = null;
+    private int leaderBoardScore = 0;
 
 
     static public Godot.SingletonBase initialize(Activity p_activity) { return new PlayGameServices(p_activity); }
@@ -49,7 +47,7 @@ public class PlayGameServices extends Godot.SingletonBase {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                GoogleApiClient = new GoogleApiClient.Builder(activity)
+                client = new GoogleApiClient.Builder(activity)
                 .addConnectionCallbacks(new ConnectionCallbacks(){
                     @Override
                     public void onConnected(Bundle m_bundle) {
@@ -77,7 +75,7 @@ public class PlayGameServices extends Godot.SingletonBase {
                                 activity.startIntentSenderForResult(m_result.getResolution().getIntentSender(), RC_SIGN_IN, null, 0, 0, 0);
                             } catch (SendIntentException ex) {
                                 isIntentInProgress = false;
-                                GoogleApiClient.connect();                                                          
+                                client.connect();                                                          
                             }
                             isResolvingConnectionFailure = true;      
                         }
@@ -95,7 +93,7 @@ public class PlayGameServices extends Godot.SingletonBase {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {                
-                GoogleApiClient.connect();                
+                client.connect();                
             }
         });
 
@@ -110,9 +108,9 @@ public class PlayGameServices extends Godot.SingletonBase {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(GoogleApiClient.isConnected()) {
-                    Games.signOut(GoogleApiClient);
-                    GoogleApiClient.disconnect();
+                if(client.isConnected()) {
+                    Games.signOut(client);
+                    client.disconnect();
                     isGooglePlayConnected = false;
                 }
                 Log.i("godot", "PlayGameServices: disconnecting from Google Play Game Services...");
@@ -133,7 +131,7 @@ public class PlayGameServices extends Godot.SingletonBase {
         if (isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
                 @Override
-                public void run() { Games.Leaderboards.submitScore(GoogleApiClient, leaderBoardID, leaderBoardScore);
+                public void run() { Games.Leaderboards.submitScore(client, leaderBoardID, leaderBoardScore);
                 }
             });
 
@@ -152,7 +150,7 @@ public class PlayGameServices extends Godot.SingletonBase {
         if (isGooglePlayConnected) {
             activity.runOnUiThread(new Runnable() {
                 @Override
-                public void run() { activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(GoogleApiClient, leaderBoardID), REQUEST_LEADERBOARD); }
+                public void run() { activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(client, leaderBoardID), REQUEST_LEADERBOARD); }
             });
 
             Log.i("godot", "PlayGameServices: leaderboard_show");
@@ -169,7 +167,7 @@ public class PlayGameServices extends Godot.SingletonBase {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Games.Achievements.unlock(GoogleApiClient, achievement_id);
+                    Games.Achievements.unlock(client, achievement_id);
                 }
             });
 
@@ -187,7 +185,7 @@ public class PlayGameServices extends Godot.SingletonBase {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Games.Achievements.increment(GoogleApiClient, achievement_id, increment_amount);
+                    Games.Achievements.increment(client, achievement_id, increment_amount);
                 }
             });
         } else {
@@ -203,7 +201,7 @@ public class PlayGameServices extends Godot.SingletonBase {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    activity.startActivityForResult(Games.Achievements.getAchievementsIntent(GoogleApiClient), REQUEST_ACHIEVEMENTS);
+                    activity.startActivityForResult(Games.Achievements.getAchievementsIntent(client), REQUEST_ACHIEVEMENTS);
                 }
             });
         } else {
@@ -216,8 +214,8 @@ public class PlayGameServices extends Godot.SingletonBase {
         if(requestCode == RC_SIGN_IN) {
             isIntentInProgress = false;
 
-            if(!GoogleApiClient.isConnecting()) {
-                GoogleApiClient.connect();
+            if(!client.isConnecting()) {
+                client.connect();
             }
         }
     }
